@@ -50,6 +50,16 @@ ChallengeMod.ChallengeData =
         SetupFunction = "PomOneBoonSetup",
         HellMode=False,
         RestoreRoomData=true,
+    },
+
+    EatTheRich = 
+    {
+        Name = "Eat The Rich",
+        Description = "At the end of every biome, lose max health based on how much money you have. ",
+        Author = "cgull",
+        SetupFunction = "EatTheRichSetup",
+        HellMode=False,
+        RestoreRoomData=true,
     }
 
     -- BossRush =
