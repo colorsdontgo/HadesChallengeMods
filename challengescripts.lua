@@ -39,8 +39,8 @@ function EatTheRichSetup()
             -- More money, bigger percentage removed. Starting with calculating 5% of money to determine the percent removed.
             -- We also want to remove the same % from the amount of health we have, to make it spicy
             -- I have no idea if this will work.
-            CurrentRun.Hero.MaxHealth = CurrentRun.Hero.MaxHealth * (1.0- (CurrentRun.Money * 0.05)/100)
-            CurrentRun.Hero.Health = CurrentRun.Hero.Health * (1.0- (CurrentRun.Money * 0.05)/100)
+            CurrentRun.Hero.MaxHealth = CurrentRun.Hero.MaxHealth * (1.0 - (CurrentRun.Money * 0.05)/100)
+            CurrentRun.Hero.Health = CurrentRun.Hero.Health * (1.0 - (CurrentRun.Money * 0.05)/100)
         end
     end
 end
