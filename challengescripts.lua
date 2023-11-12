@@ -32,6 +32,39 @@ function PomOneBoonSetup()
     end
 end
 
+function SpeedyBoisSetup()
+    -- For now, let's just mess with the normal base enemies
+    EnemyData.BaseVulnerableEnemy.AdditionalEnemySetupFunctionName = "RampSpeed"
+end
+
+function RampSpeed(enemy, currentRun)
+    -- Get the room number
+    local roomNumber = GetRunDepth(currentRun)
+
+    -- Calculate speed multiplier. Increase speed by 2% every room. In modded runs, that means ~51 rooms (for two tunnels) so 102% faster enemies at the end.
+    -- Would be cool if we could allow user to specify
+    local speedMultiplier = enemy.SpeedMultiplier or 1
+    speedMultiplier = speedMultiplier + (roomNumber * .02)
+
+    -- Set enemy's speed multiplier. These are copied from RoomManager.lua lines 4115-4116
+    DebugPrint({ Text = "ChallengeMod: Room "..roomNumber..". Setting speed multiplier for "..enemy.Name.." to "..speedMultiplier })
+    enemy.SpeedMultiplier = speedMultiplier
+    SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = enemy.SpeedMultiplier, ValueChangeType = "Multiply", DataValue = false, DestinationId = enemy.ObjectId })
+end
+
+-- Furies and Theseus already have their AdditionalEnemySetupFunctionName set, so we need to override those functions
+ModUtil.Path.Wrap("SelectHarpySupportAIs", function( baseFunc, enemy, currentRun)
+    DebugPrint({Text = "ChallengeMod: Speeding up Furies"})
+    RampSpeed(enemy, currentRun)
+    return baseFunc(enemy, currentRun)
+end, ChallengeMod)
+
+ModUtil.Path.Wrap("SelectTheseusGod", function(baseFunc, enemy, run, args)
+    DebugPrint({ Text = "ChallengeMod: Speeding up Theseus" })
+    RampSpeed(enemy, run)
+    return baseFunc(enemy, run, args)
+end, ChallengeMod)
+
 ModUtil.Path.Wrap("IsRoomRewardEligible", function( baseFunc, run, room, reward, previouslyChosenRewards, args)
     if ChallengeMod.ActiveChallenge == ChallengeMod.ChallengeData.PomOneBoon.Name then
         local reward2 = DeepCopyTable(reward)
@@ -41,6 +74,7 @@ ModUtil.Path.Wrap("IsRoomRewardEligible", function( baseFunc, run, room, reward,
         return baseFunc(run, room, reward, previouslyChosenRewards, args)
     end
 end, ChallengeMod)
+
 function ChallengeMod.BossRushRoomset()
     for _, roomData in pairs(RoomData) do
         roomData.SecretSpawnChance = 0.0

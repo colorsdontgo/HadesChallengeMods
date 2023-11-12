@@ -50,6 +50,16 @@ ChallengeMod.ChallengeData =
         SetupFunction = "PomOneBoonSetup",
         HellMode=False,
         RestoreRoomData=true,
+    },
+
+    RampUpTheSpeed = 
+    {
+        Name = "Ramp Up the Speed",
+        Description = "Every room, enemy speed increases by 1%",
+        Author = "colorsdontgo",
+        SetupFunction = "SpeedyBoisSetup",
+        HellMode = false,
+        RestoreRoomData = true,
     }
 
     -- BossRush =
