@@ -64,6 +64,16 @@ function RemoveHealth( args )
     thread( UpdateHealthUI )
 end
 
+ModUtil.Path.Wrap("CalculateDamageAdditions", function(baseFunc, attacker, victim, triggerArgs)
+    if ChallengeMod.ActiveChallenge == ChallengeMod.ChallengeData.EatTheRich.Name then
+        local damageReduction = -0.05 * CurrentRun.Money
+        DebugPrint({Text="ChallengeMod: Reducing damage by "..damageReduction})
+        return baseFunc(attacker, victim, triggerArgs) + damageReduction
+    else
+        return baseFunc(attacker, victim, triggerArgs)
+    end
+end, ChallengeMod)
+
 ModUtil.Path.Wrap("IsRoomRewardEligible", function( baseFunc, run, room, reward, previouslyChosenRewards, args)
     if ChallengeMod.ActiveChallenge == ChallengeMod.ChallengeData.PomOneBoon.Name then
         local reward2 = DeepCopyTable(reward)
