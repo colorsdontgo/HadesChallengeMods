@@ -60,6 +60,24 @@ ChallengeMod.ChallengeData =
         SetupFunction = "HealthAndWealthSetup",
         HellMode = false,
         RestoreRoomData = true,
+    },
+    RampUpTheSpeed = 
+    {
+        Name = "Ramp Up the Speed",
+        Description = "Every room, enemy speed increases by 1%",
+        Author = "colorsdontgo",
+        SetupFunction = "SpeedyBoisSetup",
+        HellMode = false,
+        RestoreRoomData = true,
+    }, 
+    EatTheRich = 
+    {
+        Name = "Eat The Rich",
+        Description = "At the end of every biome, lose max health based on how much money you have. ",
+        Author = "colorsdontgo",
+        SetupFunction = "EatTheRichSetup",
+        HellMode=False,
+        RestoreRoomData=true,
     }
 
     -- BossRush =
