@@ -70,6 +70,48 @@ ModUtil.Path.Wrap("SelectTheseusGod", function(baseFunc, enemy, run, args)
     return baseFunc(enemy, run, args)
 end, ChallengeMod)
 
+function EatTheRichSetup()
+    for _, roomData in pairs(RoomData) do
+        if string.find(roomData.Name, "PostBoss") then
+            table.insert(roomData.ThreadedEvents, { FunctionName = "RemoveHealth", Args = { HealthPercentage = 0.05, StartDelay = 1} })
+        end
+    end
+end
+
+function RemoveHealth( args )
+    -- We basically use the amount of money to determine what percentage of our health we are taking away. 
+    -- More money, bigger percentage removed. Starting with calculating 5% of money to determine the percent removed.
+    -- We also want to remove the same % from the amount of health we have, to make it spicy
+    local healthPercentage = args.HealthPercentage or 0.05
+    DebugPrint({ Text="ChallengeMod: Using "..healthPercentage.." percentage of money. Have "..CurrentRun.Money })
+    local healthChange = 1.0 - (CurrentRun.Money * healthPercentage)/100
+
+    local waitDelay = args.StartDelay or 0 
+    wait( waitDelay )
+
+    DebugPrint({Text="ChallengeMod: Reducing to "..healthChange.." percentage of health."})
+
+    local newCurrentHealth = round(CurrentRun.Hero.Health * healthChange)
+    DebugPrint({Text="ChallengeMod: Setting current health to "..newCurrentHealth})
+    CurrentRun.Hero.Health = newCurrentHealth
+
+    local newTotalHealth = round(CurrentRun.Hero.MaxHealth * healthChange)
+    DebugPrint({Text="ChallengeMod: Setting max health to "..newTotalHealth})
+    CurrentRun.Hero.MaxHealth = newTotalHealth
+
+    thread( UpdateHealthUI )
+end
+
+ModUtil.Path.Wrap("CalculateDamageAdditions", function(baseFunc, attacker, victim, triggerArgs)
+    if ChallengeMod.ActiveChallenge == ChallengeMod.ChallengeData.EatTheRich.Name then
+        local damageReduction = -0.05 * CurrentRun.Money
+        DebugPrint({Text="ChallengeMod: Reducing damage by "..damageReduction})
+        return baseFunc(attacker, victim, triggerArgs) + damageReduction
+    else
+        return baseFunc(attacker, victim, triggerArgs)
+    end
+end, ChallengeMod)
+
 ModUtil.Path.Wrap("IsRoomRewardEligible", function( baseFunc, run, room, reward, previouslyChosenRewards, args)
     if ChallengeMod.ActiveChallenge == ChallengeMod.ChallengeData.PomOneBoon.Name then
         local reward2 = DeepCopyTable(reward)
