@@ -54,7 +54,7 @@ ChallengeMod.ChallengeData =
 
     HealthAndWealth = 
     {
-        Name = "Eat The Rich",
+        Name = "Health and Wealth",
         Description = "Pick a boon in chamber one, then get health or wealth every chamber after that.",
         Author = "colorsdontgo",
         SetupFunction = "HealthAndWealthSetup",
@@ -64,7 +64,7 @@ ChallengeMod.ChallengeData =
     RampUpTheSpeed = 
     {
         Name = "Ramp Up the Speed",
-        Description = "Every room, enemy speed increases by 1%",
+        Description = "Every room, enemy speed increases by 2%.",
         Author = "colorsdontgo",
         SetupFunction = "SpeedyBoisSetup",
         HellMode = false,
@@ -73,7 +73,7 @@ ChallengeMod.ChallengeData =
     EatTheRich = 
     {
         Name = "Eat The Rich",
-        Description = "At the end of every biome, lose max health based on how much money you have. ",
+        Description = "At the end of every biome, lose max health based on how much money you have. Reduces damage done to enemies by 5% of current money.",
         Author = "colorsdontgo",
         SetupFunction = "EatTheRichSetup",
         HellMode=False,
