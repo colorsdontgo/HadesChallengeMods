@@ -15,3 +15,6 @@ To use this mod, set your keepsake/mirror/pact of punishment as desired, then wa
 - Skip Tartarus
 - Only Boons
 - Pom One Boon
+- Health and Wealth
+- Ramp Up the Speed
+- Eat the Rich
