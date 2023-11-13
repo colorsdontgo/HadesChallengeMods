@@ -54,14 +54,19 @@ end
 
 -- Furies and Theseus already have their AdditionalEnemySetupFunctionName set, so we need to override those functions
 ModUtil.Path.Wrap("SelectHarpySupportAIs", function( baseFunc, enemy, currentRun)
-    DebugPrint({Text = "ChallengeMod: Speeding up Furies"})
-    RampSpeed(enemy, currentRun)
+    if ChallengeMod.ActiveChallenge == ChallengeMod.ChallengeData.RampUpTheSpeed.Name then
+        DebugPrint({Text = "ChallengeMod: Speeding up Furies"})
+        RampSpeed(enemy, currentRun)
+    end
+    
     return baseFunc(enemy, currentRun)
 end, ChallengeMod)
 
 ModUtil.Path.Wrap("SelectTheseusGod", function(baseFunc, enemy, run, args)
-    DebugPrint({ Text = "ChallengeMod: Speeding up Theseus" })
-    RampSpeed(enemy, run)
+    if ChallengeMod.ActiveChallenge == ChallengeMod.ChallengeData.RampUpTheSpeed.Name then
+        DebugPrint({ Text = "ChallengeMod: Speeding up Theseus" })
+        RampSpeed(enemy, run)
+    end
     return baseFunc(enemy, run, args)
 end, ChallengeMod)
 
