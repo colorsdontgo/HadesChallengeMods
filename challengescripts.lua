@@ -32,6 +32,25 @@ function PomOneBoonSetup()
     end
 end
 
+-- Force all rooms to be either health or wealth, and all chaos boons to be health or increased money
+function HealthAndWealthSetup()
+    for _, roomData in pairs(RoomData) do
+        if roomData.Name == "RoomOpening" then
+            roomData.SecretSpawnChance = 1.0
+            roomData.EligibleRewards = {"Boon"} -- you can have a boon, i guess.
+        elseif not string.find(roomData.Name, "Secret") then
+            roomData.EligibleRewards = {"RoomRewardMaxHealthDrop", "RoomRewardMoneyDrop"}
+            roomData.ForcedRewardStore = "RunProgress"
+        end
+    end
+
+    for _, lootData in pairs(LootData) do 
+        if lootData.Name == "TrialUpgrade" then
+            lootData.PermanentTraits = {"ChaosBlessingMaxHealthTrait", "ChaosBlessingMoneyTrait","ChaosBlessingMaxHealthTrait","ChaosBlessingMoneyTrait"} -- we need at least 3 options or the game crashes. let's try 2 of each.
+        end
+    end
+end
+    
 function SpeedyBoisSetup()
     -- For now, let's just mess with the normal base enemies
     EnemyData.BaseVulnerableEnemy.AdditionalEnemySetupFunctionName = "RampSpeed"

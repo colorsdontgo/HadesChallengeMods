@@ -51,6 +51,16 @@ ChallengeMod.ChallengeData =
         HellMode=False,
         RestoreRoomData=true,
     },
+
+    HealthAndWealth = 
+    {
+        Name = "Eat The Rich",
+        Description = "Pick a boon in chamber one, then get health or wealth every chamber after that.",
+        Author = "colorsdontgo",
+        SetupFunction = "HealthAndWealthSetup",
+        HellMode = false,
+        RestoreRoomData = true,
+    },
     RampUpTheSpeed = 
     {
         Name = "Ramp Up the Speed",
