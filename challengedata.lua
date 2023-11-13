@@ -56,7 +56,7 @@ ChallengeMod.ChallengeData =
     {
         Name = "Eat The Rich",
         Description = "At the end of every biome, lose max health based on how much money you have. ",
-        Author = "cgull",
+        Author = "colorsdontgo",
         SetupFunction = "EatTheRichSetup",
         HellMode=False,
         RestoreRoomData=true,
